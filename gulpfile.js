@@ -11,9 +11,9 @@ gulp.task("css", function () {
   // get the files we want to watch. Do something with them. Get them to do what we want.
   return gulp
     .src([
-      "SRC/styles/html5reset-1.6.1.css",
+      "SRC/styles/_base.css",
       "SRC/styles/typography.css",
-      "SRC/styles/styles.css",
+      "SRC/styles/app.css",
     ])
     .pipe(sourceMaps.init())
     .pipe(
@@ -28,7 +28,7 @@ gulp.task("css", function () {
     .pipe(concat("app.css"))
     .pipe(cleanCss({ compatibility: "ie8" }))
     .pipe(sourceMaps.write())
-    .pipe(gulp.dest("dist"))
+    .pipe(gulp.dest("dist/styles"))
     .pipe(browserSync.stream());
 });
 
@@ -37,7 +37,7 @@ gulp.task("html", function () {
 });
 
 gulp.task("scripts", function () {
-  return gulp.src("SRC/scripts/*.js").pipe(gulp.dest("dist"));
+  return gulp.src("SRC/scripts/*").pipe(gulp.dest("dist"));
 });
 
 gulp.task("assets", function () {
@@ -54,7 +54,7 @@ gulp.task("watch", function () {
   gulp.watch("SRC/*.html", ["html"]).on("change", browserSync.reload);
   gulp.watch("SRC/styles/*.css", ["css"]);
   gulp.watch("SRC/assets/*", ["assets"]);
-  gulp.watch("SRC/scripts/*.js", ["scripts"]);
+  gulp.watch("SRC/scripts/*", ["scripts"]);
 });
 
 gulp.task("default", ["css", "html", "assets", "scripts", "watch"]);
